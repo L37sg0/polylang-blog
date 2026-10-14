@@ -3,3 +3,18 @@ ssl:
           -keyout ./nginx/ssl/wildcard.key \
           -out ./nginx/ssl/wildcard.crt \
           -subj "/CN=*.homecloud/O=Homecloud Local/C=BG"
+
+up-initials:
+	docker compose up -d nginx mysql rabbitmq redis meilisearch mailer
+
+up-php:
+	docker compose up -d php
+
+up-js:
+	docker compose up -d js
+
+up-python:
+	docker compose up -d python
+
+down:
+	docker compose down
