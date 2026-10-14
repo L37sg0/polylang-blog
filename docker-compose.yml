@@ -68,6 +68,9 @@ services:
     container_name: rabbitmq
     restart: unless-stopped
     tty: true
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
     networks:
       - app-network
 
@@ -77,6 +80,17 @@ services:
     container_name: redis
     restart: unless-stopped
     tty: true
+    networks:
+      - app-network
+
+  # Redis Commander (Web UI for Redis)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis-commander
+    restart: unless-stopped
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     networks:
       - app-network
 
@@ -101,6 +115,16 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: dev
       MYSQL_PASSWORD: password
+    networks:
+      - app-network
+
+  # Adminer (Web UI for MySQL)
+  adminer:
+    image: adminer:6.1.2-standalone
+    container_name: adminer
+    restart: unless-stopped
+    environment:
+      - ADMINER_DEFAULT_SERVER=mysql
     networks:
       - app-network
 
