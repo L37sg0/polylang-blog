@@ -1,0 +1,121 @@
+# Services
+services:
+  # NGINX Service
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    networks:
+      - app-network
+
+  # JS Service
+  js:
+    image: node:24-slim
+    container_name: js
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./www/js:/var/www
+    working_dir: /var/www
+    user: "1000:1000"
+    expose:
+      - "3000"
+    command: "node server.mjs"
+    networks:
+      - app-network
+
+    # PHP Service
+  php:
+    image: petar1v/php82:latest
+    container_name: php
+    restart: unless-stopped
+    tty: true
+    user: "1000:1000"
+    working_dir: /var/www
+    expose:
+      - "3000"
+    command: "php server.php"
+    volumes:
+      - ./www/php:/var/www
+    networks:
+      - app-network
+
+  # Python Service
+  python:
+    image: python:3.13
+    container_name: python
+    restart: unless-stopped
+    tty: true
+    user: "1000:1000"
+    working_dir: /var/www
+    expose:
+      - "3000"
+    command: "python3 server.py"
+    volumes:
+      - ./www/python:/var/www
+    networks:
+      - app-network
+
+  # RabbitMQ Service
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    tty: true
+    networks:
+      - app-network
+
+  # Redis Service
+  redis:
+    image: redis:5-alpine
+    container_name: redis
+    restart: unless-stopped
+    tty: true
+    networks:
+      - app-network
+
+  # Mail Service
+  mailer:
+    image: schickling/mailcatcher
+    container_name: mailer
+    restart: unless-stopped
+    tty: true
+    user: "1000:1000"
+    networks:
+      - app-network
+
+   # MYSQL 8.0 Service
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    environment:
+      MYSQL_DATABASE: blog
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: password
+    networks:
+      - app-network
+
+  # Meilisearch Service
+  meilisearch:
+    image: getmeili/meilisearch:v1.7
+    container_name: meilisearch
+    restart: unless-stopped
+    environment:
+      MEILI_MASTER_KEY: masterKey123
+    networks:
+      - app-network
+
+# DOCKER Networks
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
