@@ -1,2 +1,5 @@
 nginx/ssl/*
 !nginx/ssl/README.md
+www/python/__pycache__
+www/python/app/__pycache__
+www/python/app/*/__pycache__
