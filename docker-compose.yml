@@ -54,9 +54,11 @@ services:
     tty: true
     user: "1000:1000"
     working_dir: /var/www
+    environment:
+      - HOME=/tmp
     expose:
       - "3000"
-    command: "python3 server.py"
+    command: sh -c "pip install --no-cache-dir --user -r requirements.txt && python3 run.py"
     volumes:
       - ./www/python:/var/www
     networks:
