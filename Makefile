@@ -16,5 +16,14 @@ up-js:
 up-python:
 	docker compose up -d python
 
+down-php:
+	docker compose down php
+
+down-js:
+	docker compose down js
+
+down-python:
+	docker compose down python
+
 down:
 	docker compose down
