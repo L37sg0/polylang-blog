@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polyblog CDN</title>
+    <!-- Линкове към двата CSS файла в CDN-а -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/cdn.css">
+</head>
+<body>
+
+    <div class="cdn-container">
+        <h1>CDN</h1>
+        <p>Centralized static asset and media hosting node for Polyblog instances.</p>
+        
+        <div class="info-box">
+            Status: Operational<br>
+            Serving: CSS, JS (TinyMCE bundle), and User Uploads.
+        </div>
+        <h3>TinyMCE Integration Test</h3>
+        <textarea id="editor" rows="6"></textarea>
+    </div>
+
+    <script src="/js/vendor/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#editor',
+            license_key: 'gpl',
+            height: 250,
+            menubar: false,
+            plugins: 'lists link image',
+            toolbar: 'undo redo | bold italic | bullist numlist | link image'
+        });
+    </script>
+</body>
+</html>

@@ -142,6 +142,22 @@ services:
     networks:
       - app-network
 
+  # CDN Service
+  cdn:
+    image: node:24-slim
+    container_name: cdn
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./www/cdn:/var/www
+    working_dir: /var/www
+    user: "1000:1000"
+    expose:
+      - "3000"
+    command: "npm start"
+    networks:
+      - app-network
+
 # DOCKER Networks
 networks:
   app-network:

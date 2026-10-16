@@ -1,0 +1,13 @@
+{
+  "name": "cdn",
+  "version": "1.0.0",
+  "description": "CDN service for static files hosting",
+  "main": "server.mjs",
+  "type": "module",
+  "scripts": {
+  "build": "npm install && mkdir -p public/js/vendor && rm -rf public/js/vendor/tinymce && ln -sfn /var/www/node_modules/tinymce public/js/vendor/tinymce",    "start": "npm run build && node server.mjs"
+  },
+  "dependencies": {
+    "tinymce": "^8.10.0"
+  }
+}

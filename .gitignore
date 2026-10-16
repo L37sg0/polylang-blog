@@ -3,3 +3,7 @@ nginx/ssl/*
 www/python/__pycache__
 www/python/app/__pycache__
 www/python/app/*/__pycache__
+
+www/cdn/node_modules
+www/cdn/public/js/vendor
+www/cdn/package-lock.json
