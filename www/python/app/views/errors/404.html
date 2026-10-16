@@ -1,0 +1,11 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Page not found (404){% endblock %}
+
+{% block content %}
+<div class="error-container" style="text-align: center; padding: 4rem 1rem;">
+    <h2 style="font-size: 3rem; margin-bottom: 1rem; color: #333;">404</h2>
+    <p style="font-size: 1.2rem; color: #666; margin-bottom: 2rem;">Page or resource was not found.</p>
+    <a href="{{ url_for('front.index') }}" class="btn">Back to Home</a>
+</div>
+{% endblock %}
