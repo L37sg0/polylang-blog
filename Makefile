@@ -5,7 +5,7 @@ ssl:
           -subj "/CN=*.homecloud/O=Homecloud Local/C=BG"
 
 up-initials:
-	docker compose up -d nginx mysql adminer rabbitmq redis redis-commander meilisearch mailer
+	docker compose up -d nginx mysql adminer rabbitmq redis redis-commander meilisearch mailer cdn
 
 up-php:
 	docker compose up -d php
