@@ -1,0 +1,134 @@
+.admin-wrapper {
+    display: flex;
+    min-height: calc(100vh - 70px);
+}
+.admin-sidebar {
+    width: 250px;
+    background: #fff;
+    border-right: 1px solid #eaeaea;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.admin-sidebar a {
+    padding: 0.75rem 1rem;
+    color: #444;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+.admin-sidebar a:hover, .admin-sidebar a.active {
+    background: #f4f4f4;
+    color: #000;
+}
+.admin-content {
+    flex: 1;
+    padding: 2rem;
+    background: #f9f9f9;
+}
+.admin-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+/* Таблици */
+.admin-table {
+    width: 100%;
+    background: #fff;
+    border-collapse: collapse;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+.admin-table th, .admin-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eaeaea;
+}
+.admin-table th {
+    background: #fcfcfc;
+    font-weight: 600;
+    color: #333;
+}
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+.table-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.action-links {
+    display: flex;
+    gap: 0.75rem;
+}
+.action-links a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.action-view { color: #0066cc; }
+.action-edit { color: #e68a00; }
+.action-delete { color: #cc0000; }
+
+/* Форми и полета */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+}
+.form-control:focus {
+    border-color: #666;
+}
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+.btn-secondary {
+    background: #eee;
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    display: inline-block;
+    text-align: center;
+}
+.btn-secondary:hover {
+    background: #ddd;
+}
+
+/* Responsive за мобилни */
+@media (max-width: 768px) {
+    .admin-wrapper {
+        flex-direction: column;
+    }
+    .admin-sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0.75rem;
+        border-right: none;
+        border-bottom: 1px solid #eaeaea;
+    }
+}

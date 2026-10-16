@@ -1,0 +1,91 @@
+{% extends "layouts/admin.html" %}
+
+{% set active_menu = 'posts' %}
+{% block title %}Моите постове{% endblock %}
+
+{% block admin_content %}
+<div class="admin-header-flex">
+    <h2>Моите постове</h2>
+    <a href="{{ url_for('admin.new_post') }}" class="btn">Add Post</a>
+</div>
+
+<!-- Пагинация - Горе -->
+{% if pagination %}
+<div class="pagination" style="margin-top: 0; margin-bottom: 1rem;">
+    {% if pagination.has_prev %}
+        <a href="{{ url_for('admin.my_posts', page=pagination.prev_num) }}" class="btn-secondary">← Предишна</a>
+    {% else %}
+        <span></span>
+    {% endif %}
+    <span style="align-self: center; font-size: 0.9rem; color: #666;">Страница {{ pagination.page }} от {{ pagination.pages }}</span>
+    {% if pagination.has_next %}
+        <a href="{{ url_for('admin.my_posts', page=pagination.next_num) }}" class="btn-secondary">Следваща →</a>
+    {% else %}
+        <span></span>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- Таблица с постове -->
+<table class="admin-table">
+    <thead>
+        <tr>
+            <th>PostID</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Date</th>
+            <th>Comments</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.id }}</td>
+            <td>
+                {% if post.image_url %}
+                    <img src="{{ post.image_url }}" alt="" class="table-img">
+                {% else %}
+                    <span style="color: #aaa; font-size: 0.8rem;">Няма</span>
+                {% endif %}
+            </td>
+            <td><strong>{{ post.title }}</strong></td>
+            <td>{{ post.content | striptags | truncate(40) }}</td>
+            <td>{{ post.created_at.strftime('%Y-%m-%d') if post.created_at else '' }}</td>
+            <td>{{ post.comments_count|default(0) }}</td>
+            <td>
+                <div class="action-links">
+                    <a href="{{ url_for('front.show', id=post.id) }}" class="action-view" target="_blank">View</a>
+                    <a href="{{ url_for('admin.edit_post', id=post.id) }}" class="action-edit">Edit</a>
+                    <form action="{{ url_for('admin.delete_post', id=post.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Сигурни ли сте?');">
+                        <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;" class="action-delete">Delete</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="7" style="text-align: center; color: #666; padding: 2rem;">Все още нямате създадени постове.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация - Долу -->
+{% if pagination %}
+<div class="pagination">
+    {% if pagination.has_prev %}
+        <a href="{{ url_for('admin.my_posts', page=pagination.prev_num) }}" class="btn-secondary">← Предишна</a>
+    {% else %}
+        <span></span>
+    {% endif %}
+    <span style="align-self: center; font-size: 0.9rem; color: #666;">Страница {{ pagination.page }} от {{ pagination.pages }}</span>
+    {% if pagination.has_next %}
+        <a href="{{ url_for('admin.my_posts', page=pagination.next_num) }}" class="btn-secondary">Следваща →</a>
+    {% else %}
+        <span></span>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

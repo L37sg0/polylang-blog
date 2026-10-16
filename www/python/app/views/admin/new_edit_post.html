@@ -1,0 +1,52 @@
+{% extends "layouts/admin.html" %}
+
+{% set active_menu = 'posts' %}
+{% block title %}{{ 'Редакция на пост' {% if post %} редактиране {% else %} Нов пост {% endif %}{% endblock %}
+
+{% block admin_content %}
+<div style="max-width: 800px; background: #fff; padding: 2rem; border: 1px solid #eaeaea; border-radius: 6px;">
+    <h2 style="margin-bottom: 1.5rem;">{{ 'Редакция на пост' if post else 'Нов пост' }}</h2>
+    
+    <form method="POST" enctype="multipart/form-data">
+        
+        <div class="form-group">
+            <label for="title">Заглавие</label>
+            <input type="text" id="title" name="title" class="form-control" value="{{ post.title if post else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Изображение</label>
+            {% if post and post.image_url %}
+                <div style="margin-bottom: 0.5rem;">
+                    <img src="{{ post.image_url }}" alt="" style="height: 80px; border-radius: 4px;">
+                </div>
+            {% endif %}
+            <input type="file" id="image" name="image" class="form-control" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <label for="content">Съдържание</label>
+            <!-- TinyMCE ще се закачи за това textarea през id="content" -->
+            <textarea id="content" name="content" class="form-control" rows="12">{{ post.content if post else '' }}</textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Save</button>
+            <a href="{{ url_for('admin.my_posts') }}" class="btn-secondary">Discard</a>
+        </div>
+
+    </form>
+</div>
+
+<!-- Примерна инициализация на TinyMCE (можеш да ползваш техния безплатен CDN с cloud key или локален скрипт) -->
+<script src="/static/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#content',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | removeformat',
+        menubar: false,
+        height: 400
+    });
+</script>
+{% endblock %}

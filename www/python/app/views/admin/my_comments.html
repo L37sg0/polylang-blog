@@ -1,0 +1,63 @@
+{% extends "layouts/admin.html" %}
+
+{% set active_menu = 'comments' %}
+{% block title %}Моите коментари{% endblock %}
+
+{% block admin_content %}
+<div class="admin-header-flex">
+    <h2>Моите коментари</h2>
+</div>
+
+<!-- Таблица с коментари -->
+<table class="admin-table">
+    <thead>
+        <tr>
+            <th>CommentId</th>
+            <th>PostTitle</th>
+            <th>Comment</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for comment in comments %}
+        <tr>
+            <td>{{ comment.id }}</td>
+            <td><a href="{{ url_for('front.show', id=comment.post_id) }}" target="_blank" style="color: #222; text-decoration: none;">{{ comment.post_title }}</a></td>
+            <td>{{ comment.comment | truncate(60) }}</td>
+            <td>{{ comment.created_at.strftime('%Y-%m-%d') if comment.created_at else '' }}</td>
+            <td>
+                <div class="action-links">
+                    <a href="{{ url_for('front.show', id=comment.post_id) }}" class="action-view" target="_blank">View</a>
+                    <a href="{{ url_for('admin.edit_comment', id=comment.id) }}" class="action-edit">Edit</a>
+                    <form action="{{ url_for('admin.delete_comment', id=comment.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Сигурни ли сте?');">
+                        <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;" class="action-delete">Delete</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" style="text-align: center; color: #666; padding: 2rem;">Няма намерени коментари.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+{% if pagination %}
+<div class="pagination">
+    {% if pagination.has_prev %}
+        <a href="{{ url_for('admin.my_comments', page=pagination.prev_num) }}" class="btn-secondary">← Предишна</a>
+    {% else %}
+        <span></span>
+    {% endif %}
+    <span style="align-self: center; font-size: 0.9rem; color: #666;">Страница {{ pagination.page }} от {{ pagination.pages }}</span>
+    {% if pagination.has_next %}
+        <a href="{{ url_for('admin.my_comments', page=pagination.next_num) }}" class="btn-secondary">Следваща →</a>
+    {% else %}
+        <span></span>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Админ Панел{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <!-- Горна лента (споделена или бърз изход към сайта) -->
+    <header>
+        <div class="navbar">
+            <a href="{{ url_for('front.index') }}" style="text-decoration: none; font-weight: bold; color: #111;">← Към сайта</a>
+            <span style="color: #666; font-size: 0.9rem;">Админ Панел</span>
+        </div>
+    </header>
+
+    <div class="admin-wrapper">
+        <!-- Ляв Sidebar -->
+        <aside class="admin-sidebar">
+            <a href="{{ url_for('admin.my_posts') }}" class="{% if active_menu == 'posts' %}active{% endif %}">My posts</a>
+            <a href="{{ url_for('admin.my_comments') }}" class="{% if active_menu == 'comments' %}active{% endif %}">My Comments</a>
+            <a href="{{ url_for('auth.logout') }}" style="color: #cc0000; margin-top: auto;">Logout</a>
+        </aside>
+
+        <!-- Основно съдържание на админа -->
+        <main class="admin-content">
+            {% block admin_content %}{% endblock %}
+        </main>
+    </div>
+
+</body>
+</html>
