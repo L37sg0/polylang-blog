@@ -39,14 +39,15 @@
 </div>
 
 <!-- Примерна инициализация на TinyMCE (можеш да ползваш техния безплатен CDN с cloud key или локален скрипт) -->
-<script src="/static/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.localhost/js/vendor/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
-        selector: '#content',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | removeformat',
+        selector: '#editor',
+        license_key: 'gpl',
+        height: 400,
         menubar: false,
-        height: 400
+        plugins: 'lists link image',
+        toolbar: 'undo redo | bold italic | bullist numlist | link image'
     });
 </script>
 {% endblock %}
