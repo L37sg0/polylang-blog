@@ -1,0 +1,35 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="posts-page">
+    <!-- Top pagination -->
+    <div class="pagination top">
+        <button class="btn" disabled>&laquo; Previous</button>
+        <button class="btn">Next &raquo;</button>
+    </div>
+
+    <div class="posts-list">
+        {% for post in posts %}
+            <a href="{{ url_for('front.show', post_id=post.id) }}" class="post-card-link">
+                <div class="post-card">
+                    <div class="post-image">
+                        <img src="{{ post.image_url or url_for('static', filename='images/default.jpg') }}" alt="{{ post.title }}">
+                    </div>
+                    <div class="post-info">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.content[:50] }}...</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- Bottom pagination -->
+    <div class="pagination bottom">
+        <button class="btn" disabled>&laquo; Previous</button>
+        <button class="btn">Next &raquo;</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{ post.title }} - Моят Блог{% endblock %}
+
+{% block content %}
+<article class="post-full">
+    <h2>{{ post.title }}</h2>
+    
+    <div class="post-image-large">
+        <img src="{{ post.image_url or url_for('static', filename='images/default.jpg') }}" alt="{{ post.title }}">
+    </div>
+
+    <div class="post-content">
+        <p>{{ post.content }}</p>
+    </div>
+
+    <!-- Автор на поста в дясно с линк -->
+    <div class="post-author">
+        <span>Автор: </span>
+        <a href="{{ url_for('front.by_author', author_id=post.user_id) }}">
+            {{ author_name }}
+        </a>
+    </div>
+</article>
+
+<section class="comments-section">
+    <h3>Коментари</h3>
+    
+    <!-- Списък с коментари -->
+    <div class="comments-list">
+        <!-- Пример за коментар (впоследствие ще се зареждат динамично) -->
+        <div class="comment-item">
+            <h4>Потребител Име</h4>
+            <p>Това е примерен коментар към публикацията.</p>
+        </div>
+    </div>
+
+    <!-- Форма за добавяне на коментар -->
+    <form class="comment-form" method="POST" action="">
+        <textarea name="comment_content" placeholder="Напишете вашия коментар тук..." rows="4" required></textarea>
+        <button type="submit" class="btn">Публикувай коментар</button>
+    </form>
+</section>
+{% endblock %}

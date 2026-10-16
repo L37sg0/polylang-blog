@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Моят Блог{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-links">
+                <a href="{{ url_for('front.index') }}">Latest Posts</a>
+                <a href="#">Authors</a>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="nav-auth">
+                <!-- Тук на по-късен етап ще сложим проверка за логнат потребител -->
+                <a href="#" class="btn">Login</a>
+                <a href="#" class="btn">Register</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Polylang Blog</p>
+    </footer>
+</body>
+</html>
