@@ -1,7 +1,7 @@
 from flask import Flask
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder='views')
     
     # Конфигурация на базата данни
     app.config['DB_CONFIG'] = {
