@@ -1,6 +1,5 @@
 {% extends "layouts/admin.html" %}
 
-{% set active_menu = 'posts' %}
 {% block title %}Моите постове{% endblock %}
 
 {% block admin_content %}
@@ -56,9 +55,9 @@
             <td>{{ post.comments_count|default(0) }}</td>
             <td>
                 <div class="action-links">
-                    <a href="{{ url_for('front.show', id=post.id) }}" class="action-view" target="_blank">View</a>
-                    <a href="{{ url_for('admin.edit_post', id=post.id) }}" class="action-edit">Edit</a>
-                    <form action="{{ url_for('admin.delete_post', id=post.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Сигурни ли сте?');">
+                    <a href="{{ url_for('front.show', post_id=post.id) }}" class="action-view" target="_blank">View</a>
+                    <a href="{{ url_for('admin.edit_post', post_id=post.id) }}" class="action-edit">Edit</a>
+                    <form action="{{ url_for('admin.delete_post', post_id=post.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Сигурни ли сте?');">
                         <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;" class="action-delete">Delete</button>
                     </form>
                 </div>
