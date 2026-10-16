@@ -12,4 +12,7 @@ class User(BaseModel):
         self.updated_at = updated_at
         self.verified_at = verified_at
         self.reset_token = reset_token
-        self.reset_expires_a = reset_expires_at
+        self.reset_expires_at = reset_expires_at
+        
+    def get_full_name(self):
+        return f"{self.firstname} {self.lastname}"
