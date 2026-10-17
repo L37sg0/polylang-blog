@@ -4,7 +4,7 @@ from app.repositories import post_repository, user_repository, comment_repositor
 def new_post():
     pass
 
-def edit_post(post_id):
+def edit_post(post_id: int):
     pass
 
 def save_post():
@@ -13,7 +13,7 @@ def save_post():
 def update_post():
     pass
 
-def delete_post(post_id):
+def delete_post(post_id: int):
     pass
 
 def my_posts():

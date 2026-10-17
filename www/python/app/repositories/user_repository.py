@@ -10,7 +10,7 @@ def all():
     # Хидратация: превръщаме всеки ред от речника в обект Post
     return hydrate.user_array(rows)
 
-def find_by_id(user_id):
+def find_by_id(user_id: int):
     query = "SELECT * FROM users WHERE id = %s"
     row = db.fetch_one(query, (user_id,))
     
