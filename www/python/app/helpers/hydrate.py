@@ -1,5 +1,6 @@
 from app.models.post import Post
 from app.models.user import User
+from app.models.comment import Comment
 
 def post(row):
     return Post(
@@ -19,7 +20,7 @@ def post_array(rows):
         array.append(model)
         
     return array
-
+#---
 def user(row):
     return User(
                 id=row['id'],
@@ -38,6 +39,24 @@ def user_array(rows):
     array = []
     for row in rows:
         model = user(row)
+        array.append(model)
+        
+    return array 
+#---
+def comment(row):
+    return Comment(
+                id=row['id'],
+                user_id=row['user_id'],
+                post_id=row['post_id'],
+                content=row['content'],
+                created_at=row['created_at'],
+                updated_at=row['updated_at'],
+            )
+    
+def comment_array(rows):
+    array = []
+    for row in rows:
+        model = comment(row)
         array.append(model)
         
     return array 
