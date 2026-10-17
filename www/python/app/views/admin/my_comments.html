@@ -23,14 +23,14 @@
         {% for comment in comments %}
         <tr>
             <td>{{ comment.id }}</td>
-            <td><a href="{{ url_for('front.show', id=comment.post_id) }}" target="_blank" style="color: #222; text-decoration: none;">{{ comment.post_title }}</a></td>
-            <td>{{ comment.comment | truncate(60) }}</td>
+            <td><a href="{{ url_for('front.show', post_id=comment.post_id) }}" target="_blank" style="color: #222; text-decoration: none;">{{ comment.post_title }}</a></td>
+            <td>{{ comment.content | truncate(60) }}</td>
             <td>{{ comment.created_at.strftime('%Y-%m-%d') if comment.created_at else '' }}</td>
             <td>
                 <div class="action-links">
-                    <a href="{{ url_for('front.show', id=comment.post_id) }}" class="action-view" target="_blank">View</a>
-                    <a href="{{ url_for('admin.edit_comment', id=comment.id) }}" class="action-edit">Edit</a>
-                    <form action="{{ url_for('admin.delete_comment', id=comment.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Сигурни ли сте?');">
+                    <a href="{{ url_for('front.show', post_id=comment.post_id) }}" class="action-view" target="_blank">View</a>
+                    <a href="{{ url_for('admin.edit_comment', comment_id=comment.id) }}" class="action-edit">Edit</a>
+                    <form action="{{ url_for('admin.delete_comment', comment_id=comment.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Сигурни ли сте?');">
                         <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;" class="action-delete">Delete</button>
                     </form>
                 </div>
