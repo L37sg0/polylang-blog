@@ -44,3 +44,25 @@ def save(post: Post) -> int:
     post.id = new_id
     
     return new_id
+
+def update(post: Post) -> int:
+    data = post.to_dict()
+    query = """
+    UPDATE posts
+    SET
+        user_id=%s,
+        image_url=%s
+        title=%s
+        content=%s
+    WHERE
+        id=%s
+    """
+    updated_id = db.insert(query,(
+        data['user_id'],
+        data['image_url'],
+        data['title'],
+        data['content'],
+        data['id']
+    ))
+    
+    return updated_id
