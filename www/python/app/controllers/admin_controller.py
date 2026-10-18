@@ -1,8 +1,12 @@
-from flask import jsonify, render_template, request, abort, session
+from flask import jsonify, render_template, request, abort, session, url_for, redirect
 from app.repositories import post_repository, user_repository, comment_repository
+from app.models.post import Post
 
 def new_post():
-    pass
+    post = Post.from_request(request)
+    post_repository.save(post)
+    
+    return redirect(url_for('admin.my_posts'))
 
 def edit_post(post_id: int):
     pass
