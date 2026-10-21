@@ -25,20 +25,33 @@
 
 <section class="comments-section">
     <h3>Коментари</h3>
-    
     <!-- Списък с коментари -->
     <div class="comments-list">
-        <!-- Пример за коментар (впоследствие ще се зареждат динамично) -->
+    {% if comments %}
+        {% for comment in comments %}
         <div class="comment-item">
-            <h4>Потребител Име</h4>
-            <p>Това е примерен коментар към публикацията.</p>
+            <h3>{{ comment.author_name }} wrote:</h3>
+            <p>{{ comment.content }}</p>
         </div>
+        {% endfor %}
+    {% else %}
+        <div class="comment-item">
+            <p>No comments for this post yet.</p>
+        </div>
+    {% endif %}
     </div>
 
+    
+    {% if session.get('user_id') %}
     <!-- Форма за добавяне на коментар -->
-    <form class="comment-form" method="POST" action="">
-        <textarea name="comment_content" placeholder="Напишете вашия коментар тук..." rows="4" required></textarea>
+    <form class="comment-form"
+            method="POST"
+            action="{{ url_for('admin.save_comment') }}">
+        <input hidden="hidden" name="post_id" value="{{ post.id }}"/>
+        <textarea name="content" placeholder="Напишете вашия коментар тук..." rows="4" required></textarea>
         <button type="submit" class="btn">Публикувай коментар</button>
     </form>
+    {% endif %}
+
 </section>
 {% endblock %}

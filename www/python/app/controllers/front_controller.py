@@ -1,5 +1,5 @@
 from flask import jsonify, render_template, request, abort
-from app.repositories import post_repository, user_repository
+from app.repositories import post_repository, user_repository, comment_repository
 
 def index():
     posts = post_repository.all()
@@ -12,8 +12,9 @@ def show(post_id):
     
     author = user_repository.find_by_id(post.user_id)
     author_name = author.get_full_name()
+    comments = comment_repository.find_by_post_id_with_author_name(post_id)
         
-    return render_template('front/show.html', post=post, author_name=author_name)
+    return render_template('front/show.html', post=post, author_name=author_name, comments=comments)
 
 def by_author(author_id):
     author = user_repository.find_by_id(author_id)
