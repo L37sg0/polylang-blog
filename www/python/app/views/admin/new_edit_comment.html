@@ -7,11 +7,13 @@
 <div style="max-width: 600px; background: #fff; padding: 2rem; border: 1px solid #eaeaea; border-radius: 6px;">
     <h2 style="margin-bottom: 1.5rem;">Редакция на коментар</h2>
     
-    <form method="POST">
+    <form method="POST"
+            action="{{ url_for('admin.update_comment', comment_id=comment.id) }}"
+    >
         
         <div class="form-group">
-            <label for="comment">Текст на коментара</label>
-            <textarea id="comment" name="comment" class="form-control" rows="6" required>{{ comment.comment if comment else '' }}</textarea>
+            <label for="content">Текст на коментара</label>
+            <textarea id="content" name="content" class="form-control" rows="6" required>{{ comment.content if comment else '' }}</textarea>
         </div>
 
         <div class="form-actions">
