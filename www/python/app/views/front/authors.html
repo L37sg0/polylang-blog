@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="authors-page">
+    <!-- Top pagination -->
+    <div class="pagination top">
+        <button class="btn" disabled>&laquo; Previous</button>
+        <button class="btn">Next &raquo;</button>
+    </div>
+
+    <div class="authors-list">
+        {% for author in authors %}
+            <a href="{{ url_for('front.by_author', author_id=author.id) }}" class="author-card-link">
+                <div class="author-card">
+                    <div class="author-avatar">
+                        <!-- Можеш да добавиш аватар или да ползваш default картинка/инициали -->
+                        <img src="{{ author.avatar_url or url_for('static', filename='images/default-avatar.jpg') }}" alt="{{ author.firstname }} {{ author.lastname }}">
+                    </div>
+                    <div class="author-info">
+                        <h3>{{ author.firstname }} {{ author.lastname }}</h3>
+                        <div class="author-stats">
+                            <span>Постове: {{ author.posts_stat }}</span>
+                            <span>Коментари: {{ author.comments_stat }}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- Bottom pagination -->
+    <div class="pagination bottom">
+        <button class="btn" disabled>&laquo; Previous</button>
+        <button class="btn">Next &raquo;</button>
+    </div>
+</div>
+{% endblock %}
