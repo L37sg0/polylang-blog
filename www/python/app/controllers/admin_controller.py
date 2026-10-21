@@ -19,11 +19,33 @@ def save_post():
     
     return redirect(url_for('admin.my_posts'))
 
-def update_post():
-    pass
+def update_post(post_id: int):
+    user_id = session.get('user_id')
+    post = post_repository.find_by_id(post_id)
+    
+    if not post or post.user_id != user_id:
+        abort(403)
+        
+    post.title = request.form.get('title')
+    post.content = request.form.get('content')
+    post.image_url = request.form.get('image_url')
+    post_repository.update(post)
+    
+    return redirect(url_for('admin.my_posts'))
+
+    
 
 def delete_post(post_id: int):
-    pass
+    user_id = session.get('user_id')
+    post = post_repository.find_by_id(post_id)
+    
+    if not post or post.user_id != user_id:
+        abort(403)
+        
+    post_repository.delete(post_id)
+        
+    return redirect(url_for('admin.my_posts'))
+
 
 def my_posts():
     user_id = session.get('user_id')

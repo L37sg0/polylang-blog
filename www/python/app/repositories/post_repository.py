@@ -51,8 +51,8 @@ def update(post: Post) -> int:
     UPDATE posts
     SET
         user_id=%s,
-        image_url=%s
-        title=%s
+        image_url=%s,
+        title=%s,
         content=%s
     WHERE
         id=%s
@@ -66,3 +66,11 @@ def update(post: Post) -> int:
     ))
     
     return updated_id
+
+def delete(post_id: int) -> bool:
+    query = """
+    DELETE from posts where id=%s
+    """
+    db.insert(query, (post_id,))
+    return True
+    
