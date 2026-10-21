@@ -1,6 +1,7 @@
 from flask import jsonify, render_template, request, abort, session, url_for, redirect
 from app.repositories import post_repository, user_repository, comment_repository
 from app.models.post import Post
+from app.models.comment import Comment
 from typing import Optional
 from app.helpers import utils
 
@@ -8,7 +9,10 @@ from app.helpers import utils
 def new_edit_post(post_id: Optional[int] = None):
     post = None
     if post_id:
-        post = post_repository.find_by_id(post_id)
+        user_id = session.get('user_id')
+        post = post_repository.find_by_id_and_user_id(post_id, user_id)
+        if not post:
+            abort(403)
         
     return render_template('admin/new_edit_post.html', post=post)
 
@@ -21,9 +25,9 @@ def save_post():
 
 def update_post(post_id: int):
     user_id = session.get('user_id')
-    post = post_repository.find_by_id(post_id)
+    post = post_repository.find_by_id_and_user_id(post_id, user_id)
     
-    if not post or post.user_id != user_id:
+    if not post:
         abort(403)
         
     post.title = request.form.get('title')
@@ -33,19 +37,16 @@ def update_post(post_id: int):
     
     return redirect(url_for('admin.my_posts'))
 
-    
-
 def delete_post(post_id: int):
     user_id = session.get('user_id')
-    post = post_repository.find_by_id(post_id)
+    post = post_repository.find_by_id_and_user_id(post_id,user_id)
     
-    if not post or post.user_id != user_id:
+    if not post:
         abort(403)
         
     post_repository.delete(post_id)
         
     return redirect(url_for('admin.my_posts'))
-
 
 def my_posts():
     user_id = session.get('user_id')
@@ -53,25 +54,54 @@ def my_posts():
     
     return render_template('admin/my_posts.html', posts=posts)
 
+#---
+
 def my_comments():
     user_id = session['user_id']
     comments = comment_repository.find_by_user_id_with_post_title(user_id)
     
     return render_template('admin/my_comments.html', comments=comments)
     
-
-
-def new_comment():
-    pass
-
-def edit_comment():
-    pass
-
+def new_edit_comment(comment_id: Optional[int]=None):
+    comment = None
+    if comment_id:
+        user_id = session.get('user_id')
+        comment = comment_repository.find_by_id_and_user_id(comment_id, user_id)
+        if not comment:
+            abort(403)
+    
+    return render_template('admin/new_edit_comment.html', comment=comment)
+    
 def save_comment():
-    pass
+    post_id = request.form.get('post_id')
+    post = post_repository.find_by_id(post_id)
+    # In case somebody try to save comment for non-existing post and expose errors
+    if not post:
+        abort(404)
+        
+    user_id = session.get('user_id')    
+    comment = Comment.from_request(request.form, user_id)
+    comment_repository.save(comment)
+    
+    return redirect(url_for('front.show', post_id=post_id))
 
-def update_comment():
-    pass
+def update_comment(comment_id: int):
+    user_id = session.get('user_id')
+    comment = comment_repository.find_by_id_and_user_id(comment_id, user_id)
+    if not comment:
+        abort(403)
+        
+    comment.content = request.form.get('content')
+    comment_repository.update(comment)
+    
+    return redirect(url_for('admin.my_comments'))
 
-def delete_comment():
-    pass
+def delete_comment(comment_id: int):
+    user_id = session.get('user_id')
+    comment = comment_repository.find_by_id_and_user_id(comment_id, user_id)
+    if not comment:
+        abort(403)
+        
+    comment_repository.delete(comment_id)
+    
+    return redirect(url_for('admin.my_comments'))
