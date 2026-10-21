@@ -1,13 +1,22 @@
 {% extends "layouts/admin.html" %}
 
 {% set active_menu = 'posts' %}
-{% block title %}{{ 'Редакция на пост' {% if post %} редактиране {% else %} Нов пост {% endif %}{% endblock %}
+
+{% block title %}
+    {% if post %}
+        {{ 'Edit Post' }}
+    {% else %}
+        {{ 'New Post' }}
+    {% endif %}
+{% endblock %}
 
 {% block admin_content %}
 <div style="max-width: 800px; background: #fff; padding: 2rem; border: 1px solid #eaeaea; border-radius: 6px;">
     <h2 style="margin-bottom: 1.5rem;">{{ 'Редакция на пост' if post else 'Нов пост' }}</h2>
     
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST"
+            enctype="multipart/form-data"
+            action="{{ url_for('admin.update_post', post_id=post.id) if post else url_for('admin.save_post') }}">
         
         <div class="form-group">
             <label for="title">Заглавие</label>
@@ -32,7 +41,7 @@
 
         <div class="form-actions">
             <button type="submit" class="btn">Save</button>
-            <a href="{{ url_for('admin.my_posts') }}" class="btn-secondary">Discard</a>
+            <a href="" class="btn-secondary">Discard</a>
         </div>
 
     </form>
