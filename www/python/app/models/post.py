@@ -18,12 +18,13 @@ class Post(BaseModel):
         self.created_at = created_at
         self.updated_at = updated_at
         
-    def from_request(request) -> Post:
-        self.user_id = request.form.get('user_id')
-        self.image_url = request.form.get('image_url')
-        self.title = request.form.get('title')
-        self.content = request.form.get('content')
-        
-        return self
+    @classmethod
+    def from_request(cls, data: dict, user_id: int) -> 'Post':
+        return cls(
+            user_id=user_id,
+            title=data.get('title', '').strip(),
+            content=data.get('content', '').strip(),
+            image_url=data.get('image_url')
+        )
         
         
