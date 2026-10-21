@@ -22,6 +22,16 @@ def find_by_id(post_id: int) -> Optional[Post]:
     # Хидратация на единичен обект
     return hydrate.post(row)
 
+def find_by_id_and_user_id(post_id: int, user_id: int) -> Optional[Post]:
+    query = "SELECT * FROM posts WHERE id = %s AND user_id=%s"
+    row = db.fetch_one(query, (post_id,user_id,))
+    
+    if not row:
+        return None
+        
+    # Хидратация на единичен обект
+    return hydrate.post(row)
+
 def find_by_user_id(user_id: int) -> list[Post]:
     query = "SELECT * FROM posts where user_id = %s"
     rows = db.fetch_all(query, (user_id,))
