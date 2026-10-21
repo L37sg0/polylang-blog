@@ -27,4 +27,9 @@ def by_author(author_id):
         abort(404)
     
     return render_template('front/index.html', posts=posts, title=f"Posts by author {author_name}")
+
+def authors():
+    authors = user_repository.all_with_stats()
+    
+    return render_template('front/authors.html', authors=authors)
     
