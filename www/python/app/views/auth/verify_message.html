@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Потвърждение на имейл - Моят Блог{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card text-center">
+        <h2>Почти сте готови!</h2>
+        <div class="message-box">
+            <p>Изпратихме ви имейл с линк за потвърждение на акаунта.</p>
+            <p>Моля, проверете пощенската си кутия и кликнете върху линка, за да активирате профила си и да влезете в системата.</p>
+        </div>
+        <div class="auth-links mt-3">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Към страницата за вход</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
