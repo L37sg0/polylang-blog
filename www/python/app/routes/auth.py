@@ -3,11 +3,7 @@ from app.controllers import auth_controller
 
 auth_bp = Blueprint('auth',__name__, url_prefix='/auth')
 
-@auth_bp.before_request
-def fake_login():
-    session['user_id'] = 1  # Задаваме примерен ID на потребител (напр. админа)
-
-auth_bp.add_url_rule('/login', 'login', auth_controller.index, methods=['GET'])
+auth_bp.add_url_rule('/login', 'login', auth_controller.login, methods=['GET', 'POST'])
 auth_bp.add_url_rule('/logout', 'logout', auth_controller.logout, methods=['GET'])
 auth_bp.add_url_rule('/register', 'register', auth_controller.register, methods=['GET'])
 

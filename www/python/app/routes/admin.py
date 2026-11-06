@@ -1,11 +1,13 @@
-from flask import Blueprint, session
+from flask import Blueprint, session, redirect, url_for
 from app.controllers import admin_controller
 
 admin_bp = Blueprint('admin',__name__, url_prefix='/admin')
 
 @admin_bp.before_request
 def fake_login():
-    session['user_id'] = 1  # Задаваме примерен ID на потребител (напр. админа)
+    # session['user_id'] = 1  # Задаваме примерен ID на потребител (напр. админа)
+    if not session.get('user_id'):
+        return redirect(url_for('auth.login'))
 
 admin_bp.add_url_rule('/', 'my_posts', admin_controller.my_posts, methods=['GET'])
 admin_bp.add_url_rule('/post/new', 'new_post', admin_controller.new_edit_post, methods=['GET'])
