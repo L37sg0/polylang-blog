@@ -1,14 +1,25 @@
-from flask import jsonify, render_template, request, abort
+from flask import jsonify, render_template, request, abort, redirect, url_for, session
 from app.repositories import post_repository, user_repository, comment_repository
 
-def index():
-    return render_template('auth/login.html')
-
 def login():
-    pass
+    if request.method == 'GET':
+        return render_template('auth/login.html')
+
+    user = user_repository.find_by_email(request.form.get('email'))
+    if not user:
+        return redirect(url_for('auth.login'))
+    
+    password_correct = user.password == request.form.get('password')
+    if not password_correct:
+        return redirect(url_for('auth.login'))
+    
+    session['user_id'] = user.id
+    return redirect(url_for('admin.my_posts'))
+
 
 def logout():
-    pass
+    session['user_id'] = None
+    return redirect(url_for('front.index'))
 
 def register():
     pass
