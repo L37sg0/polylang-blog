@@ -37,3 +37,13 @@ def find_by_id(user_id: int) -> Optional[User]:
         
     # Хидратация на единичен обект
     return hydrate.user(row)
+
+def find_by_email(user_email: str) -> Optional[User]:
+    query = "SELECT * FROM users WHERE email = %s"
+    row = db.fetch_one(query, (user_email,))
+    
+    if not row:
+        return None
+        
+    # Хидратация на единичен обект
+    return hydrate.user(row)
