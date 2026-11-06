@@ -2,6 +2,9 @@ from flask import jsonify, render_template, request, abort, redirect, url_for, s
 from app.repositories import post_repository, user_repository, comment_repository
 
 def login():
+    if session.get('user_id'):
+        return redirect(url_for('admin.my_posts'))
+    
     if request.method == 'GET':
         return render_template('auth/login.html')
 
