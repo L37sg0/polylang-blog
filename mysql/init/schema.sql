@@ -6,7 +6,7 @@ CREATE TABLE users(
     firstname varchar(20) NOT NULL,
     lastname varchar(20) NOT NULL,
     email varchar(30) NOT NULL,
-    password varchar(50) NOT NULL,
+    password varchar(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     verified_at TIMESTAMP NULL,
@@ -37,8 +37,9 @@ CREATE TABLE comments(
 );
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `password`, `created_at`, `updated_at`, `verified_at`, `reset_token`, `reset_expires_at`) VALUES
-(1,	'Admin',	'Admin',	'admin@email.com',	'password',	'2026-11-06 18:13:06',	'2026-11-06 18:13:06',	NULL,	NULL,	NULL),
-(2,	'Normal',	'User',	'normal.user@email.com',	'password',	'2026-11-06 18:13:27',	'2026-11-06 18:17:06',	NULL,	NULL,	NULL);
+(1,	'Admin',	'Admin',	'admin@email.com',	'$2b$12$YmTY8NQBwXZjjE7Z8XiKUOY94cM5rFMq5pJwywzOrwoPRXPOCLv8u',	'2026-11-06 18:13:06',	'2026-11-07 01:28:33',	NULL,	NULL,	NULL),
+(2,	'Normal',	'User',	'normal.user@email.com',	'$2b$12$YmTY8NQBwXZjjE7Z8XiKUOY94cM5rFMq5pJwywzOrwoPRXPOCLv8u',	'2026-11-06 18:13:27',	'2026-11-07 01:28:46',	NULL,	NULL,	NULL),
+(3,	'test',	'user',	'test.user@email.com',	'$2b$12$YmTY8NQBwXZjjE7Z8XiKUOY94cM5rFMq5pJwywzOrwoPRXPOCLv8u',	'2026-11-07 01:23:38',	'2026-11-07 01:28:19',	NULL,	NULL,	NULL);
 
 INSERT INTO `posts` (`id`, `user_id`, `image_url`, `title`, `content`, `created_at`, `updated_at`) VALUES
 (1,	1,	NULL,	'First Post',	'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.',	'2026-11-06 18:31:15',	'2026-11-06 18:31:15'),
