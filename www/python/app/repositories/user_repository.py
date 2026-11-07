@@ -47,3 +47,18 @@ def find_by_email(user_email: str) -> Optional[User]:
         
     # Хидратация на единичен обект
     return hydrate.user(row)
+
+def save(user: User) -> int:
+    data = user.to_dict()
+    query = "INSERT INTO users (firstname, lastname, email, password) VALUES (%s, %s, %s, %s)"
+        
+    new_id = db.insert(query,(
+        data['firstname'],
+        data['lastname'],
+        data['email'],
+        data['password'],
+    ))
+    
+    user.id = new_id
+    
+    return new_id
