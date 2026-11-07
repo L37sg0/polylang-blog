@@ -1,4 +1,5 @@
 from pprint import pformat
+from bcrypt import gensalt, hashpw, checkpw
 
 def dd(data):
     if hasattr(data, 'to_dict') and callable(data.to_dict):
@@ -16,3 +17,12 @@ def dd(data):
     </div>
     """
     return html, 200
+
+def hash_password(password: str) -> str:
+    return hashpw(password.encode('utf-8'), gensalt()).decode('utf-8')
+
+def check_password(password: str, hash: str) -> bool:
+    return checkpw(
+        password.encode('utf-8'),
+        hash.encode('utf-8')
+    )
