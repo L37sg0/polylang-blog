@@ -23,7 +23,7 @@ def login():
 
 
 def logout():
-    session['user_id'] = None
+    session.clear()
     return redirect(url_for('front.index'))
 
 def register():
