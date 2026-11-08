@@ -18,10 +18,14 @@
                 <input type="text" placeholder="Search...">
             </div>
             <div class="nav-auth">
-                <!-- Тук на по-късен етап ще сложим проверка за логнат потребител -->
+                {% if not session.get('user_id') %}
                 <a href="{{ url_for('auth.login') }}" class="btn">Login</a>
                 <a href="{{ url_for ('auth.register') }}" class="btn">Register</a>
+                {% endif %}
+                {% if session.get('user_id') %}
                 <a href="{{ url_for('admin.my_posts') }}" class="btn">Admin</a>
+                <a href="{{ url_for('auth.logout') }}" class="btn">Logout</a>
+                {% endif %}
             </div>
         </nav>
     </header>
