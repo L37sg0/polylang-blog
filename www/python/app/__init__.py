@@ -1,4 +1,6 @@
 from flask import Flask, render_template
+import redis
+from flask_session import Session
 
 def create_app():
     app = Flask(__name__, template_folder='views')
@@ -10,6 +12,14 @@ def create_app():
         'password': 'password',
         'database': 'blog'
     }
+
+    # Sessions in redis
+    app.config['SESSION_TYPE'] = 'redis'
+    app.config['SESSION_PERMANENT'] = False
+    app.config['SESSION_USE_SIGNER'] = True
+    app.config['SESSION_REDIS'] = redis.from_url('redis://redis:6379')
+    server_session = Session(app)
+
 
     # Регистриране на рутовете (Blueprints)
     from app.routes.front import front_bp
